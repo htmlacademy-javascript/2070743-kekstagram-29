@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Софья Енькова](https://up.htmlacademy.ru/javascript/29/user/2070743).
-* Наставник: `Неизвестно`.
+* Наставник: [Arthur Litovko] (https://htmlacademy.ru/profile/id6927).
 
 ---
 
