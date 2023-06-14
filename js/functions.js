@@ -25,6 +25,6 @@ console.log(isPalindrome("ДОвод"));
 
 // функция, преобразующая строку в цифры
 
-let getNumber = (string) =>  typeof(string) === "number" ? Math.round(string * -1) : parseInt(string.replace(/[^0-9]/g,""));
+let getNumber = (string) =>  typeof(string) === "number" ? String(string) : parseInt(string.replace(/[^0-9]/g,""));
 
 console.log(getNumber('а я томат'));
