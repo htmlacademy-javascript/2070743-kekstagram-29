@@ -24,11 +24,8 @@
 		"lint": "eslint js/",
 		"fix": "eslint js/ --fix"
 	},
-	"engines": {
-		"node": "18",
-		"npm": "9"
-	},
 	"volta": {
 		"node": "18.16.0"
-	}
+	},
+	"packageManager": "pnpm@8.6.2"
 }
