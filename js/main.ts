@@ -72,7 +72,7 @@ const getRandomId = (a: number, b: number) => {
 		previousValues.push(currentValue);
 		return currentValue;
 	};
-}
+};
 
 const getRandomImgUrl = getRandomId(Img.IMG_URL_MIN, Img.IMG_URL_MAX);
 const getRandomImgId = getRandomId(Img.IMG_ID_MIN, Img.IMG_ID_MAX);
@@ -87,20 +87,20 @@ const randomLength = getRandomId(Default.LENGTH_MIN, Default.LENGTH_MAX);
 const getComments = () => {
 	return {
 		id: getCommentId(),
-		avatar: 'img/avatar-' + getAvatarUrl() + '.svg',
+		avatar: `img/avatar-${getAvatarUrl()}.svg`,
 		message: MESSAGES[getRandomMessageId()],
 		name: NAMES[getRandomNameId()]
-	}
+	};
 };
 
 const createImg = () => {
 	return {
 		id: getRandomImgId(),
-		url: 'photos/' + getRandomImgUrl() + '.jpg',
+		url: `photos/${getRandomImgUrl()}.jpg`,
 		description: DESCRIPTION_TEXTS[getRandomDescriptionId()],
 		likes: getRandomInteger(15, 200),
 		comments: Array.from({ length: randomLength() }, getComments)
-	}
+	};
 };
 
 const descriptionsArray = Array.from({ length: Default.ARRAY_LENGTH }, createImg);
