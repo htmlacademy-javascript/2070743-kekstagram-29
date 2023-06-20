@@ -1,3 +1,26 @@
+const enum Default {
+	ARRAY_LENGTH = 25,
+	LENGTH_MIN = 0,
+	LENGTH_MAX = 30
+}
+
+const enum Img {
+	IMG_URL_MIN = 1,
+	IMG_URL_MAX = 25,
+	IMG_ID_MIN = 1,
+	IMG_ID_MAX = 25,
+}
+
+const enum ImgComment {
+	COMMENT_ID_MIN = 1,
+	COMMENT_ID_MAX = 1000,
+}
+
+const enum Avatar {
+	AVATAR_URL_MIN = 1,
+	AVATAR_URL_MAX = 6,
+}
+
 const DESCRIPTION_TEXTS = ['отдыхаем на природе с шашлычками',
 	'классно погуляли с собакой, попали под дождь((',
 	'шлю привет из жаркой Испании',
@@ -38,7 +61,6 @@ const getRandomInteger = (a: number, b: number) => {
 
 const getRandomId = (a: number, b: number) => {
 	const previousValues: number[] = [];
-
 	return function () {
 		let currentValue = getRandomInteger(a, b);
 		if (previousValues.length >= (b - a + 1)) {
@@ -52,37 +74,35 @@ const getRandomId = (a: number, b: number) => {
 	};
 }
 
-const getRandomImgUrl = getRandomId(1, 25);
-const getCommentId = getRandomId(1, 1000);
-const getAvatarUrl = getRandomId(1, 6);
-const randomDescriptionId = getRandomId(0, DESCRIPTION_TEXTS.length - 1);
-const randomMessageId = getRandomId(0, MESSAGES.length - 1);
-const randomNameId = getRandomId(0, NAMES.length - 1);
-const randomLength = getRandomInteger(0,30);
+const getRandomImgUrl = getRandomId(Img.IMG_URL_MIN, Img.IMG_URL_MAX);
+const getRandomImgId = getRandomId(Img.IMG_ID_MIN, Img.IMG_ID_MAX);
+const getCommentId = getRandomId(ImgComment.COMMENT_ID_MIN, ImgComment.COMMENT_ID_MAX);
+const getAvatarUrl = getRandomId(Avatar.AVATAR_URL_MIN, Avatar.AVATAR_URL_MAX);
 
+const getRandomDescriptionId = getRandomId(0, DESCRIPTION_TEXTS.length - 1);
+const getRandomMessageId = getRandomId(0, MESSAGES.length - 1);
+const getRandomNameId = getRandomId(0, NAMES.length - 1);
+const randomLength = getRandomId(Default.LENGTH_MIN, Default.LENGTH_MAX);
 
 const getComments = () => {
 	return {
 		id: getCommentId(),
 		avatar: 'img/avatar-' + getAvatarUrl() + '.svg',
-		message: MESSAGES[randomMessageId()],
-		name: NAMES[randomNameId()]
+		message: MESSAGES[getRandomMessageId()],
+		name: NAMES[getRandomNameId()]
 	}
 };
 
-const commentsArray = Array.from({length: randomLength}, getComments);
-
-
-const createImgDescription = () => { //сделать массив из объектов
+const createImg = () => {
 	return {
-		id: getRandomInteger(1, 25),
+		id: getRandomImgId(),
 		url: 'photos/' + getRandomImgUrl() + '.jpg',
-		description: DESCRIPTION_TEXTS[randomDescriptionId()],
+		description: DESCRIPTION_TEXTS[getRandomDescriptionId()],
 		likes: getRandomInteger(15, 200),
-		comments: commentsArray
+		comments: Array.from({ length: randomLength() }, getComments)
 	}
 };
 
-const descriptionsArray = Array.from({length: 25},createImgDescription);
+const descriptionsArray = Array.from({ length: Default.ARRAY_LENGTH }, createImg);
 console.log(descriptionsArray);
 
