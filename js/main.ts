@@ -1,3 +1,6 @@
+import { getRandomInteger, getRandomId } from './utils';
+import {DESCRIPTION_TEXTS, MESSAGES, NAMES} from './data.ts';
+
 const enum Default {
 	ARRAY_LENGTH = 25,
 	LENGTH_MIN = 0,
@@ -18,59 +21,6 @@ const enum Avatar {
 	URL_MIN = 1,
 	URL_MAX = 6,
 }
-
-const DESCRIPTION_TEXTS = ['отдыхаем на природе с шашлычками',
-	'классно погуляли с собакой, попали под дождь((',
-	'шлю привет из жаркой Испании',
-	'надоело учиться, когда уже каникулы...',
-	'Не важно, кто ты снаружи, главное — кто ты внутри. ©Джейсон Стэтхэм',
-	'Пусть тортик будет самым вкусным,<br>Каждый подарок — самым лучшим,<br>А жизнь прекрасна и ярка.<br>С днем рождения! Ура!'];
-const MESSAGES = ['Всё отлично!',
-	'В целом всё неплохо. Но не всё.',
-	'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-	'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-	'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-	'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
-];
-const NAMES = [
-	'Данила',
-	'Анастасия',
-	'Мария',
-	'Юрий',
-	'Анна',
-	'Серафима',
-	'Арсений',
-	'Лидия',
-	'Алёна',
-	'Диана',
-	'Михаил',
-	'Варвара',
-	'Ярослав',
-	'Матвей',
-	'Арина'
-];
-
-const getRandomInteger = (a: number, b: number) => {
-	const lower = Math.ceil(Math.min(a, b));
-	const upper = Math.floor(Math.max(a, b));
-	const result = Math.random() * (upper - lower + 1) + lower;
-	return Math.floor(result);
-};
-
-const getRandomId = (a: number, b: number) => {
-	let previousValues: number[] = [];
-	return function () {
-		let currentValue = getRandomInteger(a, b);
-		if (previousValues.length >= (b - a + 1)) {
-			previousValues = [];
-		}
-		while (previousValues.includes(currentValue)) {
-			currentValue = getRandomInteger(a, b);
-		}
-		previousValues.push(currentValue);
-		return currentValue;
-	};
-};
 
 const getRandomImgUrl = getRandomId(Img.ID_MIN, Img.ID_MAX);
 const getRandomImgId = getRandomId(Img.ID_MIN, Img.ID_MAX);
@@ -102,5 +52,4 @@ const createImg = () => {
 };
 
 const descriptionsArray = Array.from({ length: Default.ARRAY_LENGTH }, createImg);
-
 
