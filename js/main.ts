@@ -5,20 +5,18 @@ const enum Default {
 }
 
 const enum Img {
-	IMG_URL_MIN = 1,
-	IMG_URL_MAX = 25,
-	IMG_ID_MIN = 1,
-	IMG_ID_MAX = 25,
+	ID_MIN = 1,
+	ID_MAX = 25,
 }
 
 const enum ImgComment {
-	COMMENT_ID_MIN = 1,
-	COMMENT_ID_MAX = 1000,
+	ID_MIN = 1,
+	ID_MAX = 1000,
 }
 
 const enum Avatar {
-	AVATAR_URL_MIN = 1,
-	AVATAR_URL_MAX = 6,
+	URL_MIN = 1,
+	URL_MAX = 6,
 }
 
 const DESCRIPTION_TEXTS = ['отдыхаем на природе с шашлычками',
@@ -60,11 +58,11 @@ const getRandomInteger = (a: number, b: number) => {
 };
 
 const getRandomId = (a: number, b: number) => {
-	const previousValues: number[] = [];
+	let previousValues: number[] = [];
 	return function () {
 		let currentValue = getRandomInteger(a, b);
 		if (previousValues.length >= (b - a + 1)) {
-			previousValues.length = 0;
+			previousValues = [];
 		}
 		while (previousValues.includes(currentValue)) {
 			currentValue = getRandomInteger(a, b);
@@ -74,10 +72,10 @@ const getRandomId = (a: number, b: number) => {
 	};
 };
 
-const getRandomImgUrl = getRandomId(Img.IMG_URL_MIN, Img.IMG_URL_MAX);
-const getRandomImgId = getRandomId(Img.IMG_ID_MIN, Img.IMG_ID_MAX);
-const getCommentId = getRandomId(ImgComment.COMMENT_ID_MIN, ImgComment.COMMENT_ID_MAX);
-const getAvatarUrl = getRandomId(Avatar.AVATAR_URL_MIN, Avatar.AVATAR_URL_MAX);
+const getRandomImgUrl = getRandomId(Img.ID_MIN, Img.ID_MAX);
+const getRandomImgId = getRandomId(Img.ID_MIN, Img.ID_MAX);
+const getCommentId = getRandomId(ImgComment.ID_MIN, ImgComment.ID_MAX);
+const getAvatarUrl = getRandomId(Avatar.URL_MIN, Avatar.URL_MAX);
 
 const getRandomDescriptionId = getRandomId(0, DESCRIPTION_TEXTS.length - 1);
 const getRandomMessageId = getRandomId(0, MESSAGES.length - 1);
@@ -104,5 +102,5 @@ const createImg = () => {
 };
 
 const descriptionsArray = Array.from({ length: Default.ARRAY_LENGTH }, createImg);
-console.log(descriptionsArray);
+
 
