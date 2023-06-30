@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import { lessOrEqual, isPalindrome, getNumber} from './functions';
+import {lessOrEqual, isPalindrome, getNumber, getMeeting} from './functions';
 
 describe('Функция для проверки длины строки.', () => {
 	const TEST_STRING = 'проверяемая строка';
@@ -26,4 +26,13 @@ describe ('Функция для извлечения цифр из строки
 	it('Число вернет число', () => expect(getNumber(2023)).toBe(2023));
 	it('Дробное число', () => expect(getNumber(1.5)).toBe(15));
 	it('Отрицательное число', () => expect(getNumber(-1)).toBe(1));
+});
+
+
+describe('Функция для проверки совпадения встречи с графиком рабочего дня', () => {
+	it('Встреча вписывается в график', () => expect(getMeeting('08:00', '17:30', '14:00', 90)).toBe(true));
+	it('Сокращено количество нулей', () => expect(getMeeting('8:0', '10:0', '8:0', 120)).toBe(true));
+	it('Встреча не вписывается в график', () => expect(getMeeting('08:00', '14:30', '14:00', 90)).toBe(false));
+	it('Начало встречи раньше начала дня', () => expect(getMeeting('14:00', '17:30', '08:0', 90)).toBe(false));
+	it('Встреча слишком долгая', () => expect(getMeeting('8:00', '17:30', '08:00', 900)).toBe(false));
 });
