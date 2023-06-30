@@ -11,4 +11,14 @@ const getNumber = (string:string) => {
 	return parseInt(string.replace(/[^0-9]/g,''), 10);
 };
 
-export {lessOrEqual, isPalindrome, getNumber};
+// задание 11
+const parseTime = (time:string) => {
+	const parts = time.split(':').map(Number);
+	const [hours, minutes] = parts;
+	const minutesPerHour = 60;
+	return hours * minutesPerHour + minutes;
+};
+
+const getMeeting = (beginning:string, end:string, start:string, duration:number) => parseTime(beginning) <= parseTime(start) && parseTime(start) + duration <= parseTime(end);
+
+export {lessOrEqual, isPalindrome, getNumber, getMeeting};
