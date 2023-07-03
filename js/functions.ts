@@ -1,3 +1,5 @@
+const MINUTES_PER_HOUR = 60;
+
 const lessOrEqual = (string:string, maxLength:number) => string.length <= maxLength;
 
 const isPalindrome = (string:string) => {
@@ -6,7 +8,7 @@ const isPalindrome = (string:string) => {
 	return reversed === string;
 };
 
-const getNumber = (string:string) => {
+const getNumber = (string: string | Number) => {
 	string = string.toString();
 	return parseInt(string.replace(/[^0-9]/g,''), 10);
 };
@@ -15,8 +17,7 @@ const getNumber = (string:string) => {
 const parseTime = (time:string) => {
 	const parts = time.split(':').map(Number);
 	const [hours, minutes] = parts;
-	const minutesPerHour = 60;
-	return hours * minutesPerHour + minutes;
+	return hours * MINUTES_PER_HOUR + minutes;
 };
 
 const getMeeting = (beginning:string, end:string, start:string, duration:number) => parseTime(beginning) <= parseTime(start) && parseTime(start) + duration <= parseTime(end);
