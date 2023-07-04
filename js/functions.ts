@@ -8,7 +8,7 @@ const isPalindrome = (string:string) => {
 	return reversed === string;
 };
 
-const getNumber = (string: string | Number) => {
+const getNumber = (string: string | number) => {
 	string = string.toString();
 	return parseInt(string.replace(/[^0-9]/g,''), 10);
 };
