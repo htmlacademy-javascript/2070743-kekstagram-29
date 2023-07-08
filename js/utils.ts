@@ -20,4 +20,8 @@ const getRandomId = (a: number, b: number) => {
 	};
 };
 
-export {getRandomInteger, getRandomId};
+const isEscapeKey = (evt:any) => evt.key === 'Escape';
+
+// const isEnterKey = (evt:any) => evt.key === 'Enter';
+
+export {getRandomInteger, getRandomId, isEscapeKey };
