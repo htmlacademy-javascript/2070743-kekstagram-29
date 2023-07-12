@@ -1,3 +1,5 @@
+import {closeFullPhoto} from './full-photo';
+
 const getRandomInteger = (a: number, b: number) => {
 	const lower = Math.ceil(Math.min(a, b));
 	const upper = Math.floor(Math.max(a, b));
@@ -22,6 +24,12 @@ const getRandomId = (a: number, b: number) => {
 
 const isEscapeKey = (evt:any) => evt.key === 'Escape';
 
+const onDocumentKeydown = (evt: any) => {
+	if (isEscapeKey(evt)) {
+		evt.preventDefault();
+		closeFullPhoto();
+	}
+};
 // const isEnterKey = (evt:any) => evt.key === 'Enter';
 
-export {getRandomInteger, getRandomId, isEscapeKey };
+export {getRandomInteger, getRandomId, isEscapeKey, onDocumentKeydown };
