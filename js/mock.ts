@@ -26,7 +26,7 @@ const enum Avatar {
 const getRandomImgUrl = getRandomId(Img.ID_MIN, Img.ID_MAX);
 const getRandomImgId = getRandomId(Img.ID_MIN, Img.ID_MAX);
 const getCommentId = getRandomId(ImgComment.ID_MIN, ImgComment.ID_MAX);
-const getAvatarUrl = getRandomId(Avatar.URL_MIN, Avatar.URL_MAX);
+const getAvatarUrl = () => `img/avatar-${getRandomInteger(Avatar.URL_MIN, Avatar.URL_MAX)}.svg` as const;
 
 const getRandomDescriptionId = getRandomId(0, DESCRIPTION_TEXTS.length - 1);
 const getRandomMessageId = getRandomId(0, MESSAGES.length - 1);
@@ -35,7 +35,7 @@ const randomLength = getRandomId(Default.LENGTH_MIN, Default.LENGTH_MAX);
 
 const getComments = (): PhotoComment => ({
 	id: getCommentId(),
-	avatar: `img/avatar-${getAvatarUrl()}.svg`,
+	avatar: getAvatarUrl(),
 	message: MESSAGES[getRandomMessageId()],
 	name: NAMES[getRandomNameId()]
 });
