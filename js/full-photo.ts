@@ -1,9 +1,9 @@
 import { Photo} from './types';
-import { onDocumentKeydown } from './utils';
+import { closeModal, openModal, onDocumentKeydown } from './utils';
 import { descriptionsArray } from './mock';
 import {renderComments, clearComments} from './comments';
 
-const bigPicture = document.querySelector('.big-picture');
+const bigPicture = document.querySelector<HTMLElement>('.big-picture');
 const closeButton = document.querySelector('.big-picture__cancel');
 const bigPictureImg = document.querySelector<HTMLImageElement>('.big-picture__img img');
 const likesCount = document.querySelector<HTMLElement>('.likes-count');
@@ -11,14 +11,12 @@ const commentsCount = document.querySelector<HTMLElement>('.comments-count');
 const fullPhotoDescription = document.querySelector<HTMLElement>('.social__caption');
 
 const openFullPhoto = () => {
-	bigPicture?.classList.remove('hidden');
-	document.body.classList.add('modal-open');
+	openModal(bigPicture!);
 	document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const closeFullPhoto = () => {
-	bigPicture?.classList.add('hidden');
-	document.body.classList.remove('modal-open');
+	closeModal(bigPicture!);
 	document.removeEventListener('keydown', onDocumentKeydown);
 };
 
