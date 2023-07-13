@@ -24,12 +24,17 @@ const getRandomId = (a: number, b: number) => {
 
 const isEscapeKey = (evt:any) => evt.key === 'Escape';
 
-const onDocumentKeydown = (evt: any) => {
+const onDocumentKeydown = (evt:any) => {
 	if (isEscapeKey(evt)) {
 		evt.preventDefault();
 		closeFullPhoto();
 	}
 };
-// const isEnterKey = (evt:any) => evt.key === 'Enter';
 
-export {getRandomInteger, getRandomId, isEscapeKey, onDocumentKeydown };
+const renderPack = <El>(items: El[], container: Element, render:(item:El) => HTMLElement) => {
+	const fragment = document.createDocumentFragment();
+	items.forEach((item) => fragment.append(render(item)));
+	container.append(fragment);
+};
+
+export {getRandomInteger, getRandomId, isEscapeKey, onDocumentKeydown, renderPack };
