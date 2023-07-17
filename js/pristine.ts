@@ -2,7 +2,7 @@ const hashtags = document.querySelector('.text__hashtags') as HTMLElement;
 const comment = document.querySelector('.text__description') as HTMLElement;
 const form = document.querySelector('.img-upload__form');
 
-const hashtag =  /^(\s*#[a-zа-яё0-9]{1,19}\s*)*$/i;
+const hashtag = /^(\s*#[a-zа-яё0-9]{1,19}\s*)*$/i;
 
 const pristine = new Pristine(form, {
 	classTo: 'img-upload__field-wrapper',
@@ -23,9 +23,7 @@ const validateLengthAndDubs = (value:string) => {
 	return tags.length <= 5 && tags.length === noDubs.size;
 };
 
-const validateTextLength = (value:string) => {
-	return value.length <= 140;
-};
+const validateTextLength = (value:string) => value.length <= 140;
 
 const keydownHandler = (evt:Event) => {
 	evt.stopPropagation();
@@ -39,7 +37,7 @@ const addHandlers = (el:HTMLElement) => {
 	el!.addEventListener('blur', () => {
 		el!.removeEventListener ('keydown', keydownHandler);
 	});
-}
+};
 
 addHandlers(hashtags);
 addHandlers(comment);

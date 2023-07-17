@@ -23,9 +23,9 @@ const getRandomId = (a: number, b: number) => {
 	};
 };
 
-const isEscapeKey = (evt:any) => evt.key === 'Escape';
+const isEscapeKey = (evt:Event) => evt.key === 'Escape';
 
-const onDocumentKeydown = (evt:any) => {
+const onDocumentKeydown = (evt:Event) => {
 	if (isEscapeKey(evt)) {
 		evt.preventDefault();
 		closeFullPhoto();
