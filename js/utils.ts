@@ -1,4 +1,5 @@
 import {closeFullPhoto} from './full-photo';
+import {closeFormWindow} from './form';
 
 const getRandomInteger = (a: number, b: number) => {
 	const lower = Math.ceil(Math.min(a, b));
@@ -22,12 +23,13 @@ const getRandomId = (a: number, b: number) => {
 	};
 };
 
-const isEscapeKey = (evt:any) => evt.key === 'Escape';
+const isEscapeKey = (evt:Event) => evt.key === 'Escape';
 
-const onDocumentKeydown = (evt:any) => {
+const onDocumentKeydown = (evt:Event) => {
 	if (isEscapeKey(evt)) {
 		evt.preventDefault();
 		closeFullPhoto();
+		closeFormWindow();
 	}
 };
 
@@ -37,4 +39,14 @@ const renderPack = <El>(items: El[], container: Element, render:(item:El) => HTM
 	container.append(fragment);
 };
 
-export {getRandomInteger, getRandomId, isEscapeKey, onDocumentKeydown, renderPack };
+const openModal = (modal:HTMLElement) => {
+	modal.classList.remove('hidden');
+	document.body.classList.add('modal-open');
+};
+
+const closeModal = (modal:HTMLElement) => {
+	modal.classList.add('hidden');
+	document.body.classList.remove('modal-open');
+};
+
+export {getRandomInteger, getRandomId, isEscapeKey, onDocumentKeydown, renderPack, openModal, closeModal };
