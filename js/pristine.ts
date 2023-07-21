@@ -1,7 +1,6 @@
 const hashtags = document.querySelector('.text__hashtags') as HTMLElement;
 const comment = document.querySelector('.text__description') as HTMLElement;
 const form = document.querySelector('.img-upload__form');
-
 const hashtag = /^(\s*#[a-zа-яё0-9]{1,19}\s*)*$/i;
 
 const pristine = new Pristine(form, {
@@ -50,3 +49,5 @@ form!.addEventListener('submit', (evt) => {
 	evt.preventDefault();
 	pristine.validate();
 });
+
+export {pristine};
