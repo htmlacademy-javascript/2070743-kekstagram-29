@@ -1,4 +1,4 @@
-import { openModal, closeModal,onDocumentKeydown } from './utils';
+import { openModal, closeModal,isEscapeKey } from './utils';
 import { pristine } from './pristine';
 import { resetEffect} from './nouislider';
 import { resetScale } from './scale';
@@ -9,13 +9,6 @@ const uploadForm = document.querySelector<HTMLFormElement>('.img-upload__overlay
 const closeButton = document.querySelector<HTMLElement>('.img-upload__cancel');
 const form = document.querySelector<HTMLFormElement>('.img-upload__form');
 
-
-imgInput?.addEventListener('change', () => {
-	openModal(uploadForm!);
-	document.addEventListener('keydown', onDocumentKeydown);
-	imgInput.value = '';
-});
-
 const closeFormWindow = () => {
 	form!.reset();
 	pristine.reset();
@@ -24,6 +17,19 @@ const closeFormWindow = () => {
 	closeModal(uploadForm!);
 	document.removeEventListener('keydown', onDocumentKeydown);
 };
+
+const onDocumentKeydown = (evt:KeyboardEvent) => {
+	if (isEscapeKey(evt)) {
+		evt.preventDefault();
+		closeFormWindow();
+	}
+};
+
+imgInput?.addEventListener('change', () => {
+	openModal(uploadForm!);
+	document.addEventListener('keydown', onDocumentKeydown);
+	imgInput.value = '';
+});
 
 closeButton!.addEventListener('click', () => {
 	if (uploadForm?.classList.value !== 'hidden') {

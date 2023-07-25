@@ -1,5 +1,5 @@
 import { Photo} from './types';
-import { closeModal, openModal, onDocumentKeydown } from './utils';
+import { closeModal, openModal, isEscapeKey} from './utils';
 import { descriptionsArray } from './mock';
 import {renderComments, clearComments} from './comments';
 
@@ -9,6 +9,13 @@ const bigPictureImg = document.querySelector<HTMLImageElement>('.big-picture__im
 const likesCount = document.querySelector<HTMLElement>('.likes-count');
 const commentsCount = document.querySelector<HTMLElement>('.comments-count');
 const fullPhotoDescription = document.querySelector<HTMLElement>('.social__caption');
+
+const onDocumentKeydown = (evt:KeyboardEvent) => {
+	if (isEscapeKey(evt)) {
+		evt.preventDefault();
+		closeFullPhoto();
+	}
+};
 
 const openFullPhoto = () => {
 	openModal(bigPicture!);

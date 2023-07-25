@@ -1,3 +1,5 @@
+import Pristine from 'pristinejs';
+
 const hashtags = document.querySelector('.text__hashtags') as HTMLElement;
 const comment = document.querySelector('.text__description') as HTMLElement;
 const form = document.querySelector('.img-upload__form');
@@ -18,7 +20,7 @@ const validateFormat = (value:string) => {
 };
 
 const validateLengthAndDubs = (value:string) => {
-	const tags = value.trim().split(/\s*(?=#)/);
+	const tags = value.toLowerCase().trim().split(/\s*(?=#)/);
 	const noDubs = new Set(tags);
 	return tags.length <= 5 && tags.length === noDubs.size;
 };
