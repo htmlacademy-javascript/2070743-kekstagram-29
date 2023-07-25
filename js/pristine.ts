@@ -1,7 +1,7 @@
 const hashtags = document.querySelector('.text__hashtags') as HTMLElement;
 const comment = document.querySelector('.text__description') as HTMLElement;
 const form = document.querySelector('.img-upload__form');
-
+const textHashtag = form?.querySelector('.text__hashtags');
 const hashtag = /^(\s*#[a-zа-яё0-9]{1,19}\s*)*$/i;
 
 const pristine = new Pristine(form, {
@@ -42,11 +42,13 @@ const addHandlers = (el:HTMLElement) => {
 addHandlers(hashtags);
 addHandlers(comment);
 
-pristine.addValidator(form?.querySelector('.text__hashtags'),validateFormat, 'хештег невалиден');
-pristine.addValidator(form?.querySelector('.text__hashtags'),validateLengthAndDubs, 'Не более 5 неповторяющихся хештегов');
+pristine.addValidator(textHashtag,validateFormat, 'хештег невалиден');
+pristine.addValidator(textHashtag,validateLengthAndDubs, 'Не более 5 неповторяющихся хештегов');
 pristine.addValidator(form?.querySelector('.text__description'),validateTextLength, 'Длина комментария не более 140 символов');
 
 form!.addEventListener('submit', (evt) => {
 	evt.preventDefault();
 	pristine.validate();
 });
+
+export {pristine};
