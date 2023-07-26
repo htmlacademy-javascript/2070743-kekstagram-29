@@ -38,3 +38,5 @@ const createPicture = (photoData: Photo) => {
 
 descriptionsArray.forEach(createPicture);
 thumbnailsContainer.append(thumbnailsFragment);
+
+export {createPicture};
