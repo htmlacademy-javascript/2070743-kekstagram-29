@@ -1,6 +1,5 @@
 import { Photo} from './types';
 import { closeModal, openModal, isEscapeKey} from './utils';
-import { descriptionsArray } from './mock';
 import {renderComments, clearComments} from './comments';
 
 const bigPicture = document.querySelector<HTMLElement>('.big-picture');
@@ -43,6 +42,5 @@ const createFullPhoto = ({ url, description, likes, comments }: Photo) => {
 	renderComments(comments);
 };
 
-createFullPhoto(descriptionsArray[0]);
 
 export { openFullPhoto,closeFullPhoto, createFullPhoto };

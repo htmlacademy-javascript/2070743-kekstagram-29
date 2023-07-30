@@ -1,13 +1,13 @@
-import { openModal, closeModal,isEscapeKey } from './utils';
+import { openModal, closeModal, onDocumentEscKeydown } from './utils';
 import { pristine } from './pristine';
-import { resetEffect} from './nouislider';
+import { resetEffect } from './nouislider';
 import { resetScale } from './scale';
-
 
 const imgInput = document.querySelector<HTMLFormElement>('.img-upload__input');
 const uploadForm = document.querySelector<HTMLFormElement>('.img-upload__overlay');
 const closeButton = document.querySelector<HTMLElement>('.img-upload__cancel');
 const form = document.querySelector<HTMLFormElement>('.img-upload__form');
+const formSubmitButton = document.querySelector<HTMLFormElement>('#upload-submit');
 
 const closeFormWindow = () => {
 	form!.reset();
@@ -15,19 +15,14 @@ const closeFormWindow = () => {
 	resetEffect();
 	resetScale();
 	closeModal(uploadForm!);
-	document.removeEventListener('keydown', onDocumentKeydown);
+	document.removeEventListener('keydown', formEscKeydown);
 };
 
-const onDocumentKeydown = (evt:KeyboardEvent) => {
-	if (isEscapeKey(evt)) {
-		evt.preventDefault();
-		closeFormWindow();
-	}
-};
+const formEscKeydown = (evt: KeyboardEvent) => onDocumentEscKeydown(evt, closeFormWindow);
 
 imgInput?.addEventListener('change', () => {
 	openModal(uploadForm!);
-	document.addEventListener('keydown', onDocumentKeydown);
+	document.addEventListener('keydown', formEscKeydown);
 	imgInput.value = '';
 });
 
@@ -37,4 +32,14 @@ closeButton!.addEventListener('click', () => {
 	}
 });
 
-export {closeFormWindow};
+const blockSubmitButton = () => {
+	formSubmitButton!.textContent = 'Отправка...';
+	formSubmitButton!.disabled = true;
+};
+
+const unblockSubmitButton = () => {
+	formSubmitButton!.textContent = 'Опубликовать';
+	formSubmitButton!.disabled = false;
+};
+
+export { closeFormWindow, blockSubmitButton, unblockSubmitButton, formEscKeydown };

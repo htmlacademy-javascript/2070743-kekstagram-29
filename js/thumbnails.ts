@@ -1,5 +1,4 @@
 import { createFullPhoto } from './full-photo';
-import { descriptionsArray } from './mock';
 import { Photo } from './types';
 import {openFullPhoto} from './full-photo';
 
@@ -10,14 +9,12 @@ if (!template || !thumbnailsContainer) {
 	throw new Error('Template or thumbnails container not found');
 }
 
-const thumbnailsFragment = document.createDocumentFragment();
-
 const createPicture = (photoData: Photo) => {
 	const { id, url, description, likes, comments } = photoData;
 	const pictureElement = template.cloneNode(true) as HTMLAnchorElement;
 	const pictureTag = pictureElement.querySelector<HTMLImageElement>('.picture__img');
 	if (!pictureTag) {
-		return;
+		throw new Error('Picture tag not found');
 	}
 
 	pictureTag.addEventListener('click', (evt) => {
@@ -32,11 +29,15 @@ const createPicture = (photoData: Photo) => {
 	pictureTag.alt = description;
 	pictureElement.querySelector('.picture__likes')!.textContent = likes.toString();
 	pictureElement.querySelector('.picture__comments')!.textContent = comments.length.toString();
-
-	thumbnailsFragment.append(pictureElement);
+	return pictureElement;
 };
 
-descriptionsArray.forEach(createPicture);
-thumbnailsContainer.append(thumbnailsFragment);
+const insertPictures = (photos: Photo[]) => {
+	const thumbnailsFragment = document.createDocumentFragment();
+	photos.forEach((photo) => {
+		thumbnailsFragment.append(createPicture(photo));
+	});
+	thumbnailsContainer.append(thumbnailsFragment);
+};
 
-export {createPicture};
+export {createPicture, insertPictures};
