@@ -1,5 +1,3 @@
-import {closeFullPhoto} from './full-photo';
-import {closeFormWindow} from './form';
 
 const getRandomInteger = (a: number, b: number) => {
 	const lower = Math.ceil(Math.min(a, b));
@@ -23,30 +21,46 @@ const getRandomId = (a: number, b: number) => {
 	};
 };
 
-const isEscapeKey = (evt:Event) => evt.key === 'Escape';
+const isEscapeKey = (evt: KeyboardEvent) => evt.key === 'Escape';
 
-const onDocumentKeydown = (evt:Event) => {
+const onDocumentEscKeydown = (evt: KeyboardEvent, callback: () => void) => {
 	if (isEscapeKey(evt)) {
 		evt.preventDefault();
-		closeFullPhoto();
-		closeFormWindow();
+		callback();
 	}
 };
 
-const renderPack = <El>(items: El[], container: Element, render:(item:El) => HTMLElement) => {
+const renderPack = <El>(items: El[], container: Element, render: (item: El) => HTMLElement) => {
 	const fragment = document.createDocumentFragment();
 	items.forEach((item) => fragment.append(render(item)));
 	container.append(fragment);
 };
 
-const openModal = (modal:HTMLElement) => {
+const openModal = (modal: HTMLElement) => {
 	modal.classList.remove('hidden');
 	document.body.classList.add('modal-open');
 };
 
-const closeModal = (modal:HTMLElement) => {
+const closeModal = (modal: HTMLElement) => {
 	modal.classList.add('hidden');
 	document.body.classList.remove('modal-open');
 };
 
-export {getRandomInteger, getRandomId, isEscapeKey, onDocumentKeydown, renderPack, openModal, closeModal };
+const showAlert = (message: string) => {
+	const alertContainer = document.createElement('div');
+	alertContainer.style.zIndex = '100';
+	alertContainer.style.position = 'absolute';
+	alertContainer.style.left = '0';
+	alertContainer.style.top = '0';
+	alertContainer.style.right = '0';
+	alertContainer.style.padding = '10px 3px';
+	alertContainer.style.fontSize = '30px';
+	alertContainer.style.textAlign = 'center';
+	alertContainer.style.backgroundColor = 'red';
+
+	alertContainer!.textContent = message;
+
+	document.body.append(alertContainer);
+};
+
+export { getRandomInteger, getRandomId, isEscapeKey, renderPack, openModal, closeModal, showAlert, onDocumentEscKeydown };

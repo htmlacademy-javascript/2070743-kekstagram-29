@@ -1,3 +1,9 @@
+import Pristine from 'pristinejs';
+import { uploadPhoto } from './server';
+import { blockSubmitButton, closeFormWindow, unblockSubmitButton } from './form';
+import { showAlert } from './utils';
+import { showSuccessModal, showErrorModal } from './modal';
+
 const hashtags = document.querySelector('.text__hashtags') as HTMLElement;
 const comment = document.querySelector('.text__description') as HTMLElement;
 const form = document.querySelector('.img-upload__form');
@@ -9,7 +15,7 @@ const pristine = new Pristine(form, {
 	errorTextParent: 'img-upload__field-wrapper'
 });
 
-const validateFormat = (value:string) => {
+const validateFormat = (value: string) => {
 	if (value !== '') {
 		return hashtag.test(value);
 	} else {
@@ -17,38 +23,53 @@ const validateFormat = (value:string) => {
 	}
 };
 
-const validateLengthAndDubs = (value:string) => {
-	const tags = value.trim().split(/\s*(?=#)/);
+const validateLengthAndDubs = (value: string) => {
+	const tags = value.toLowerCase().trim().split(/\s*(?=#)/);
 	const noDubs = new Set(tags);
 	return tags.length <= 5 && tags.length === noDubs.size;
 };
 
-const validateTextLength = (value:string) => value.length <= 140;
+const validateTextLength = (value: string) => value.length <= 140;
 
-const keydownHandler = (evt:Event) => {
+const keydownHandler = (evt: Event) => {
 	evt.stopPropagation();
 };
 
-const addHandlers = (el:HTMLElement) => {
+const addHandlers = (el: HTMLElement) => {
 	el!.addEventListener('focus', () => {
-		el!.addEventListener ('keydown', keydownHandler);
+		el!.addEventListener('keydown', keydownHandler);
 	});
 
 	el!.addEventListener('blur', () => {
-		el!.removeEventListener ('keydown', keydownHandler);
+		el!.removeEventListener('keydown', keydownHandler);
 	});
 };
 
 addHandlers(hashtags);
 addHandlers(comment);
 
-pristine.addValidator(textHashtag,validateFormat, 'хештег невалиден');
-pristine.addValidator(textHashtag,validateLengthAndDubs, 'Не более 5 неповторяющихся хештегов');
-pristine.addValidator(form?.querySelector('.text__description'),validateTextLength, 'Длина комментария не более 140 символов');
+pristine.addValidator(textHashtag, validateFormat, 'хештег невалиден');
+pristine.addValidator(textHashtag, validateLengthAndDubs, 'Не более 5 неповторяющихся хештегов');
+pristine.addValidator(form?.querySelector('.text__description'), validateTextLength, 'Длина комментария не более 140 символов');
+
 
 form!.addEventListener('submit', (evt) => {
 	evt.preventDefault();
-	pristine.validate();
+	const isValid = pristine.validate();
+	if (isValid) {
+		blockSubmitButton();
+		const formData = new FormData(evt.target as HTMLFormElement);
+		uploadPhoto(formData)
+			.then(() => {
+				closeFormWindow();
+				showSuccessModal();
+			})
+			.catch((err) => {
+				showAlert(err.message);
+				showErrorModal();
+			})
+			.finally(unblockSubmitButton);
+	}
 });
 
-export {pristine};
+export { pristine };

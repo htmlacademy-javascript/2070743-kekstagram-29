@@ -1,3 +1,5 @@
+import noUiSlider from 'nouislider';
+import 'nouislider/dist/nouislider.min.css';
 
 const imgContainer = document.querySelector('.img-upload__preview');
 const img = imgContainer?.querySelector('img');
@@ -32,6 +34,17 @@ const sliderDataMap = new Map([
 	['effect-heat', createSliderData(1, 3, 0.1)],
 ]);
 
+const formNoUiSlider = noUiSlider.create(slider!, {
+	start: 1,
+	connect: 'lower',
+	step: 0.1,
+	range: {
+		'min': 0,
+		'max': 1
+	}
+});
+
+
 const applyEffect = (effect: string) => {
 	const filterSupplier = filtersSuppliers.get(effect) || (() => 'none');
 	img!.style.filter = filterSupplier();
@@ -43,7 +56,7 @@ const applyEffect = (effect: string) => {
 const updateSliderData = (effect: string) => {
 	const sliderData = sliderDataMap.get(effect);
 	if (sliderData !== undefined) {
-		slider!.noUiSlider.updateOptions(sliderData);
+		formNoUiSlider.updateOptions(sliderData, false);
 	}
 };
 
@@ -65,26 +78,8 @@ previews!.forEach((preview) => {
 	});
 });
 
-noUiSlider.create(slider, {
-	start: 1,
-	connect: 'lower',
-	step: 0.1,
-	format: {
-		to: function (value: number) {
-			return value.toFixed(1);
-		},
-		from: function (value: string) {
-			return parseFloat(value);
-		},
-	},
-	range: {
-		'min': 0,
-		'max': 1
-	}
-});
-
-slider!.noUiSlider.on('update', () => {
-	sliderValue!.value = slider!.noUiSlider.get();
+formNoUiSlider.on('update', () => {
+	sliderValue!.value = formNoUiSlider.get().toString();
 	const currentChecked = document.querySelector('.effects__radio[checked]') as HTMLInputElement;
 	applyEffect(currentChecked.id);
 });

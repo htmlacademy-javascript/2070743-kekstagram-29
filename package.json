@@ -31,5 +31,9 @@
 	"volta": {
 		"node": "18.16.1"
 	},
-	"packageManager": "pnpm@8.6.5"
+	"packageManager": "pnpm@8.6.5",
+	"dependencies": {
+		"nouislider": "15.7.1",
+		"pristinejs": "1.1.0"
+	}
 }
