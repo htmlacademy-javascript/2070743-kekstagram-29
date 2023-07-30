@@ -62,5 +62,12 @@ const showAlert = (message: string) => {
 
 	document.body.append(alertContainer);
 };
+const enum RandomResult {
+	LESS = -1,
+	EQUAL = 0,
+	MORE = 1
+}
 
-export { getRandomInteger, getRandomId, isEscapeKey, renderPack, openModal, closeModal, showAlert, onDocumentEscKeydown };
+const randomSort = () => getRandomInteger(RandomResult.LESS, RandomResult.MORE) as RandomResult;
+
+export { getRandomInteger, getRandomId, isEscapeKey, renderPack, openModal, closeModal, showAlert, onDocumentEscKeydown, randomSort };
