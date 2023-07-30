@@ -6,10 +6,12 @@ import './nouislider';
 import './scale';
 import './server';
 import './modal';
-import { insertPictures} from './thumbnails';
+import './sorts';
+import './optimizers';
 import { showAlert } from './utils';
 import {loadPhotos} from './server';
+import { initThumbnailSorting } from './sorts';
 
 loadPhotos()
-	.then((photos) => insertPictures(photos))
+	.then((photos) => initThumbnailSorting(photos))
 	.catch((err) => showAlert(err.message));

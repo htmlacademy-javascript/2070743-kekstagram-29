@@ -1,6 +1,7 @@
 import { createFullPhoto } from './full-photo';
 import { Photo } from './types';
 import {openFullPhoto} from './full-photo';
+import { renderPack } from './utils';
 
 const template = document.querySelector<HTMLTemplateElement>('#picture')?.content.querySelector<HTMLAnchorElement>('.picture');
 const thumbnailsContainer = document.querySelector<HTMLDivElement>('.pictures');
@@ -32,12 +33,11 @@ const createPicture = (photoData: Photo) => {
 	return pictureElement;
 };
 
-const insertPictures = (photos: Photo[]) => {
-	const thumbnailsFragment = document.createDocumentFragment();
-	photos.forEach((photo) => {
-		thumbnailsFragment.append(createPicture(photo));
-	});
-	thumbnailsContainer.append(thumbnailsFragment);
-};
+const renderThumbnails = (photos: Photo[]) => renderPack(photos, thumbnailsContainer, (photo) => {
+	const thumbnail = createPicture(photo);
+	return thumbnail;
+});
 
-export {createPicture, insertPictures};
+const clearThumbnails = () => thumbnailsContainer.querySelectorAll('.picture').forEach((picture) => picture.remove());
+
+export {createPicture, renderThumbnails, clearThumbnails};
