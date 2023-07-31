@@ -1,4 +1,4 @@
-import { showAlert } from "./utils";
+import { showAlert } from './utils';
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
@@ -15,14 +15,14 @@ fileChooser!.addEventListener('change', () => {
 	const file = fileChooser.files?.[0];
 	if (!file) {
 		throw new Error(`file not found ${fileChooser.files?.length}`);
-	};
+	}
 	const fileName = file.name.toLowerCase();
 	const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
 	if (matches) {
 		preview.src = URL.createObjectURL(file);
 	} else {
-		showAlert('Invalid file type. Please choose a valid image file.')
+		showAlert('Invalid file type. Please choose a valid image file.');
 	}
 });
 
