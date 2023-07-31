@@ -23,7 +23,6 @@ const formEscKeydown = (evt: KeyboardEvent) => onDocumentEscKeydown(evt, closeFo
 imgInput?.addEventListener('change', () => {
 	openModal(uploadForm!);
 	document.addEventListener('keydown', formEscKeydown);
-	imgInput.value = '';
 });
 
 closeButton!.addEventListener('click', () => {

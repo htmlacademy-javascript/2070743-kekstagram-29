@@ -8,6 +8,7 @@ import './server';
 import './modal';
 import './sorts';
 import './optimizers';
+import './photo-upload';
 import { showAlert } from './utils';
 import {loadPhotos} from './server';
 import { initThumbnailSorting } from './sorts';
