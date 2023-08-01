@@ -5,9 +5,9 @@ const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const fileChooser = document.querySelector<HTMLInputElement>('.img-upload__input');
 const previewWrapper = document.querySelector<HTMLDivElement>('.img-upload__preview');
 const preview = previewWrapper!.querySelector('img');
+const effects = document.querySelectorAll<HTMLSpanElement>('.effects__preview');
 
-
-if (!previewWrapper || !preview || !fileChooser) {
+if (!previewWrapper || !preview || !fileChooser || !effects) {
 	throw new Error('Preview elements not found');
 }
 
@@ -21,6 +21,9 @@ fileChooser!.addEventListener('change', () => {
 
 	if (matches) {
 		preview.src = URL.createObjectURL(file);
+		effects.forEach((effect) => {
+			effect.style.backgroundImage = `url(${preview.src})`;
+		});
 	} else {
 		showAlert('Invalid file type. Please choose a valid image file.');
 	}

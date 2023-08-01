@@ -6,16 +6,19 @@ const successTemplate = document.querySelector<HTMLTemplateElement>('#success')?
 const errorTemplate = document.querySelector<HTMLTemplateElement>('#error')?.content.querySelector<HTMLAnchorElement>('.error');
 
 let currentModal: HTMLAnchorElement | undefined;
+let currentModalName = '';
 
 const showSuccessModal = () => {
 	showModal(successTemplate!);
 	const successButton = currentModal!.querySelector<HTMLButtonElement>('.success__button');
+	currentModalName = 'success';
 	successButton!.addEventListener('click', closeModal);
 };
 
 const showErrorModal = () => {
 	showModal(errorTemplate!);
 	const errorButton = currentModal!.querySelector<HTMLButtonElement>('.error__button');
+	currentModalName = 'error';
 	errorButton!.addEventListener('click', closeModal);
 };
 
@@ -31,13 +34,6 @@ const showModal = (template: HTMLAnchorElement) => {
 	}
 };
 
-const onEscKeydown = (evt: KeyboardEvent) => onDocumentEscKeydown(evt, closeModal);
-const onOuterBodyClick = (evt: Event) => {
-	if (evt.target instanceof HTMLElement && !evt.target.closest('.error__inner')) {
-		closeModal();
-	}
-};
-
 const closeModal = () => {
 	if (currentModal !== undefined) {
 		document.removeEventListener('keydown', onEscKeydown);
@@ -47,5 +43,21 @@ const closeModal = () => {
 		currentModal = undefined;
 	}
 };
+
+const onEscKeydown = (evt: KeyboardEvent) => onDocumentEscKeydown(evt, closeModal);
+
+// const onOuterBodyClick = (evt:any) => {
+// 		if (!evt.target.closest(`.success__inner`)) {
+// 			closeModal();
+// 		}
+// 	};
+
+
+const onOuterBodyClick = (evt:any) => {
+	if (!evt.target.closest(`.${currentModalName}__inner`)) {
+		closeModal();
+	}
+};
+
 
 export { showSuccessModal, showErrorModal };

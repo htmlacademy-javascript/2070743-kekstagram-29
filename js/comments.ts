@@ -3,9 +3,8 @@ import { renderPack } from './utils';
 
 const commentsContainer = document.querySelector<HTMLElement>('.social__comments');
 const commentTemplate = document.querySelector<HTMLElement>('.social__comment');
-const commentText = document.querySelector<HTMLElement>('.social__text');
-
-const status = document.querySelector<HTMLElement>('.social__comment-count');
+const currentCommentCount = document.querySelector<HTMLElement>('.comments-count-current');
+const totalCommentCount = document.querySelector<HTMLElement>('.comments-count');
 const commentsLoader = document.querySelector<HTMLElement>('.comments-loader');
 let allComments: PhotoComment[] = [];
 
@@ -14,6 +13,7 @@ const showComments = ({avatar, name, message}:PhotoComment) => {
 	const avatarPicture = commentElement!.querySelector<HTMLImageElement>('.social__picture');
 	avatarPicture!.src = avatar;
 	avatarPicture!.alt = name;
+	const commentText = commentElement!.querySelector<HTMLElement>('.social__text');
 	commentText!.textContent = message;
 	return commentElement!;
 };
@@ -25,7 +25,8 @@ commentsLoader!.addEventListener('click', () => {
 	endOfSlice = allCommentsShown ? allComments.length : endOfSlice;
 	const nextPack = allComments.slice(currentAmount, endOfSlice);
 	renderPack(nextPack, commentsContainer!, showComments);
-	status!.textContent = `${endOfSlice} из ${allComments.length} комментариев`;
+	currentCommentCount!.textContent = endOfSlice.toString();
+	totalCommentCount!.textContent = allComments.length.toString();
 	commentsLoader!.hidden = allCommentsShown;
 });
 
