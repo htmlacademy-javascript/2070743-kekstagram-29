@@ -7,7 +7,7 @@ const previewWrapper = document.querySelector<HTMLDivElement>('.img-upload__prev
 const preview = previewWrapper!.querySelector('img');
 const effects = document.querySelectorAll<HTMLSpanElement>('.effects__preview');
 
-if (!previewWrapper || !preview || !fileChooser|| !effects) {
+if (!previewWrapper || !preview || !fileChooser || !effects) {
 	throw new Error('Preview elements not found');
 }
 

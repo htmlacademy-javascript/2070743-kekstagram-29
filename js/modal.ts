@@ -60,5 +60,4 @@ const onOuterBodyClick = (evt:any) => {
 };
 
 
-
 export { showSuccessModal, showErrorModal };
