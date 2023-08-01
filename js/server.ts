@@ -7,7 +7,7 @@ const Methods = {
 	POST: 'POST'
 };
 
-const api = <T>(path: string, method: string, body : string | null = null): Promise<T> =>
+const api = <T>(path: string, method: string, body : FormData | null = null): Promise<T> =>
 	fetch(`${BASE_URL}/${path}`, { method, body })
 		.then((response) => {
 			if (!response.ok) {
@@ -17,9 +17,9 @@ const api = <T>(path: string, method: string, body : string | null = null): Prom
 		});
 
 const get = <T>(path: string) => api<T>(path, Methods.GET);
-const post = <T>(path: string, body: string | null = null) => api<T>(path, Methods.POST, body);
+const post = <T>(path: string, body: FormData | null = null) => api<T>(path, Methods.POST, body);
 
 const loadPhotos = () => get<Photo[]>('kekstagram/data');
-const uploadPhoto = (data: FormData) => post('kekstagram', JSON.stringify(data));
+const uploadPhoto = (data: FormData) => post('kekstagram', data);
 
 export { loadPhotos, uploadPhoto };

@@ -48,7 +48,7 @@ const closeModal = (modal: HTMLElement) => {
 
 const showAlert = (message: string) => {
 	const alertContainer = document.createElement('div');
-	alertContainer.style.zIndex = '100';
+	alertContainer.style.zIndex = '9';
 	alertContainer.style.position = 'absolute';
 	alertContainer.style.left = '0';
 	alertContainer.style.top = '0';
