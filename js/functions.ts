@@ -13,7 +13,6 @@ const getNumber = (string: string | number) => {
 	return parseInt(string.replace(/[^0-9]/g,''), 10);
 };
 
-// задание 11
 const parseTime = (time:string) => {
 	const parts = time.split(':').map(Number);
 	const [hours, minutes] = parts;

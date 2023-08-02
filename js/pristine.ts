@@ -4,6 +4,11 @@ import { blockSubmitButton, closeFormWindow, unblockSubmitButton } from './form'
 import { showAlert } from './utils';
 import { showSuccessModal, showErrorModal } from './modal';
 
+const enum Default {
+	MAX_TAGS = 5,
+	MAX_SYMBOLS = 140
+}
+
 const hashtags = document.querySelector('.text__hashtags') as HTMLElement;
 const comment = document.querySelector('.text__description') as HTMLElement;
 const form = document.querySelector('.img-upload__form');
@@ -26,22 +31,22 @@ const validateFormat = (value: string) => {
 const validateLengthAndDubs = (value: string) => {
 	const tags = value.toLowerCase().trim().split(/\s*(?=#)/);
 	const noDubs = new Set(tags);
-	return tags.length <= 5 && tags.length === noDubs.size;
+	return tags.length <= Default.MAX_TAGS && tags.length === noDubs.size;
 };
 
-const validateTextLength = (value: string) => value.length <= 140;
+const validateTextLength = (value: string) => value.length <= Default.MAX_SYMBOLS;
 
-const keydownHandler = (evt: Event) => {
+const onElementKeydown = (evt: Event) => {
 	evt.stopPropagation();
 };
 
 const addHandlers = (el: HTMLElement) => {
 	el!.addEventListener('focus', () => {
-		el!.addEventListener('keydown', keydownHandler);
+		el!.addEventListener('keydown', onElementKeydown);
 	});
 
 	el!.addEventListener('blur', () => {
-		el!.removeEventListener('keydown', keydownHandler);
+		el!.removeEventListener('keydown', onElementKeydown);
 	});
 };
 

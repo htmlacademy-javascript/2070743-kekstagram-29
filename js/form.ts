@@ -15,14 +15,14 @@ const closeFormWindow = () => {
 	resetEffect();
 	resetScale();
 	closeModal(uploadForm!);
-	document.removeEventListener('keydown', formEscKeydown);
+	document.removeEventListener('keydown', onFormEscKeydown);
 };
 
-const formEscKeydown = (evt: KeyboardEvent) => onDocumentEscKeydown(evt, closeFormWindow);
+const onFormEscKeydown = (evt: KeyboardEvent) => onDocumentEscKeydown(evt, closeFormWindow);
 
 imgInput?.addEventListener('change', () => {
 	openModal(uploadForm!);
-	document.addEventListener('keydown', formEscKeydown);
+	document.addEventListener('keydown', onFormEscKeydown);
 });
 
 closeButton!.addEventListener('click', () => {
@@ -41,4 +41,4 @@ const unblockSubmitButton = () => {
 	formSubmitButton!.disabled = false;
 };
 
-export { closeFormWindow, blockSubmitButton, unblockSubmitButton, formEscKeydown };
+export { closeFormWindow, blockSubmitButton, unblockSubmitButton, onFormEscKeydown };
